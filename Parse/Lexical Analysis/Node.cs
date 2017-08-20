@@ -1,11 +1,12 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Parse {
-    public class Node {
+    public class Node : IEnumerable<Node> {
         public String payload;
         public Types type;
         public Node leftChild;
@@ -90,6 +91,10 @@ namespace Parse {
                 } else {
                     this.parent.rightChild = null;
                 }
+            } else {
+                this.payload = "0";
+                this.leftChild = null;
+                this.rightChild = null;
             }
         }
 
@@ -137,8 +142,29 @@ namespace Parse {
             }
             throw null;
         }
+
         public override string ToString() {
             return getTree(this);
+        }
+
+        public IEnumerator<Node> GetEnumerator() {
+            if (hasLeftChild()) {
+                foreach (var v in leftChild) {
+                    yield return v;
+                }
+            }
+
+            yield return this;
+
+            if (hasRightChild()) {
+                foreach (var v in rightChild) {
+                    yield return v;
+                }
+            }
+        }
+
+        IEnumerator IEnumerable.GetEnumerator() {
+            yield return this.GetEnumerator();
         }
     }
 }

@@ -16,7 +16,7 @@ namespace Parse {
             Dictionary<String, double> Variables = new Dictionary<String, double>();
             Stack<Node> Statements = new Stack<Node>();
 
-            foreach(Node n in ParseSyntaxTree(syntaxTree)) {
+            foreach(Node n in syntaxTree) {
 
                 if (n.type == Types.Number) {
                     Numbers.Push(Double.Parse(n.payload));
@@ -42,18 +42,6 @@ namespace Parse {
                 Console.WriteLine(key);
             }
 
-        }
-
-        private IEnumerable<Node> ParseSyntaxTree(Node n) {
-            if (n.hasLeftChild()) {
-                foreach(Node subn in ParseSyntaxTree(n.leftChild))
-                    yield return subn;
-            }
-            yield return n;
-            if (n.hasRightChild()) {
-                foreach (Node subn in ParseSyntaxTree(n.rightChild))
-                    yield return subn;
-            }
         }
     }
 }
