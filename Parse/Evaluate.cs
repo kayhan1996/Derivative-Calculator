@@ -11,8 +11,8 @@ namespace Parse {
             this.expression = expression;
         }
 
-        public double eval(Node n) {
-            if (n.type == "Number" || !(n.hasLeftChild() && n.hasRightChild())) {
+        public static double eval(Node n) {
+            if (n.type == Types.Number || !(n.hasLeftChild() && n.hasRightChild())) {
                 return Double.Parse(n.payload);
             } else {
                 double x = eval(n.leftChild);
