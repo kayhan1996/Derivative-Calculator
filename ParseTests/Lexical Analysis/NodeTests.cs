@@ -164,5 +164,25 @@ namespace Parse.Tests {
                 throw new Exception("Foreach loop does not iterate correctly");
             }
         }
+
+        [TestMethod()]
+        public void TestToString() {
+            var a = new Node("2");
+            var b = new Node("3");
+
+            var x = new Node(payload: "*", leftChild: a, rightChild: b);
+
+            if(x.ToString() != "2*3") {
+                throw new Exception("ToString method error");
+            }
+
+            x.Payload = "+";
+            x.Attribute = Attributes.Parenthesized;
+
+            if(x.ToString() != "(2+3)") {
+                throw new Exception("ToString method error: Parenthesis error");
+            }
+
+        }
     }
 }
