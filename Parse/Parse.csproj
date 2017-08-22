@@ -44,12 +44,12 @@
   <ItemGroup>
     <Compile Include="Derivator.cs" />
     <Compile Include="Evaluate.cs" />
-    <Compile Include="Lexical Analysis\Node.cs" />
+    <Compile Include="Node\Node.cs" />
     <Compile Include="Lexical Analysis\Parser.cs" />
     <Compile Include="Lexical Analysis\Types.cs" />
     <Compile Include="Main.cs" />
-    <Compile Include="Lexical Analysis\NodeOperators.cs" />
-    <Compile Include="Lexical Analysis\NodeBooleanProperties.cs" />
+    <Compile Include="Node\NodeOperators.cs" />
+    <Compile Include="Node\NodeBooleanProperties.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Lexical Analysis\Tokenizer.cs" />
     <Compile Include="Simplifier.cs" />
