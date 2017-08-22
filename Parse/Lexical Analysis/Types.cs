@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Parse {
     public enum Attributes {
-        Variable, Number, Parenthesized, Factor, Polynomial, Exponent, Statement, Empty
+        Variable, Number, Parenthesized, Factor, Polynomial, Exponent, Statement, Empty,
+        Term
     }
 }

@@ -11,7 +11,7 @@ namespace Parse.Tests {
     public class EvaluateTests {
 
         [TestMethod()]
-        public void evaluationTest() {
+        public void TestEvaluation() {
             Parser p = new Parser("(1+0)^2+2^2*(3+1)");
             Node n = p.parse();
             double t = Evaluate.eval(n);
@@ -23,7 +23,7 @@ namespace Parse.Tests {
         }
 
         [TestMethod()]
-        public void multiplicationDydx() {
+        public void TestMultiplicationDydx() {
             Parser p = new Parser("2*x");
             Node n = p.parse();
             Node dydx = Derivator.dydx(n);
@@ -37,7 +37,7 @@ namespace Parse.Tests {
         }
 
         [TestMethod()]
-        public void constantDydx() {
+        public void TestConstantDydx() {
             Parser p = new Parser("10");
             Node n = p.parse();
             n = Derivator.dydx(n);

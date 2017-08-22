@@ -16,8 +16,8 @@ namespace Parse {
         public Node(String payload = "", Attributes type = Attributes.Empty, Node leftChild = null, Node rightChild = null) {
             this.Payload = payload;
             this.Attribute = type;
-            this.leftChild = leftChild;
-            this.rightChild = rightChild;
+            this.LeftChild = leftChild;
+            this.RightChild = rightChild;
         }
 
         /// <summary>
@@ -30,7 +30,7 @@ namespace Parse {
 
             set {
                 this.leftChild = value;
-                value.Parent = this;
+                if (value != null) { value.Parent = this; };
             }
         }
 
@@ -43,7 +43,7 @@ namespace Parse {
             }
             set {
                 this.rightChild = value;
-                value.Parent = this;
+                if (value != null) { value.Parent = this; }
             }
         }
 
@@ -77,7 +77,8 @@ namespace Parse {
         /// Replaces the current node with Node n
         /// </summary>
         /// <param name="n"></param>
-        public void replaceCurrentNode(Node n) {
+        public void Replace(Node n) {
+            this.Payload = n.Payload;
             this.LeftChild = n.LeftChild;
             this.RightChild = n.RightChild;
             this.Attribute = n.Attribute;
