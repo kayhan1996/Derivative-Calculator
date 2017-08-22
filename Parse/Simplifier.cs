@@ -45,6 +45,34 @@ namespace Parse {
             FindAndReplace(n, predicate, action);
         }
 
+        public static void PowersOfOne(Node n) {
+            Func<Node, bool> predicate = x => {
+                return
+                x.Payload == "^" &&
+                x.RightChild.Payload == "1";
+            };
+
+            Action<Node> action = x => {
+                x.Replace(x.LeftChild);
+            };
+
+            FindAndReplace(n, predicate, action);
+        }
+
+        public static void PowersOfZero(Node n) {
+            Func<Node, bool> predicate = x => {
+                return
+                x.Payload == "^" &&
+                x.RightChild.Payload == "0";
+            };
+
+            Action<Node> action = x => {
+                x.Replace(new Node("1", Attributes.Number));
+            };
+
+            FindAndReplace(n, predicate, action);
+        }
+
         private static void FindAndReplace(Node n, Func<Node, bool> p, Action<Node> a) {
             var node = n.FirstOrDefault(p);
 
@@ -53,5 +81,6 @@ namespace Parse {
                 FindAndReplace(n, p, a);
             }
         }
+
     }
 }

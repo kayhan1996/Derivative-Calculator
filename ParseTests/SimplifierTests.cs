@@ -51,5 +51,65 @@ namespace Parse.Tests {
             }
         }
 
+        [TestMethod()]
+        public void TestPowersOfOne() {
+            var p = new Parser("x^1").Parse();
+            Simplify.PowersOfOne(p);
+            if (p.ToString() != "x") {
+                Assert.Fail();
+            }
+
+            p = new Parser("37^1").Parse();
+            Simplify.PowersOfOne(p);
+            if(p.ToString() != "37") {
+                Assert.Fail();
+            }
+
+            p = new Parser("1+2*x^1+1").Parse();
+            Simplify.PowersOfOne(p);
+            if(p.ToString() != "1+2*x+1") {
+                Assert.Fail();
+            }
+
+            p = new Parser("1+x^2").Parse();
+            Simplify.PowersOfOne(p);
+            if(p.ToString() != "1+x^2") {
+                Assert.Fail();
+            }
+        }
+
+        [TestMethod()]
+        public void TestPowersOfZero() {
+            var p = new Parser("x^0").Parse();
+            Simplify.PowersOfZero(p);
+            if(p.ToString() != "1") {
+                Assert.Fail();
+            }
+
+            p = new Parser("2^0").Parse();
+            Simplify.PowersOfZero(p);
+            if(p.ToString() != "1") {
+                Assert.Fail();
+            }
+
+            p = new Parser("1+2^0").Parse();
+            Simplify.PowersOfZero(p);
+            if(p.ToString() != "1+1") {
+                Assert.Fail();
+            }
+
+            p = new Parser("1+x^0").Parse();
+            Simplify.PowersOfZero(p);
+            if (p.ToString() != "1+1") {
+                Assert.Fail();
+            }
+
+            p = new Parser("1+(x+5)^0").Parse();
+            Simplify.PowersOfZero(p);
+            if (p.ToString() != "1+1") {
+                Assert.Fail();
+            }
+        }
+
     }
 }
