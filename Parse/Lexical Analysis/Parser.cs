@@ -10,7 +10,7 @@ namespace Parse {
         public Parser(string equation) {
             t = new Tokenizer(equation);
         }
-        public Node parse() {
+        public Node Parse() {
             return Statement();
         }
         public Node Statement() {

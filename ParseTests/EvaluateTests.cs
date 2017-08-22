@@ -13,7 +13,7 @@ namespace Parse.Tests {
         [TestMethod()]
         public void TestEvaluation() {
             Parser p = new Parser("(1+0)^2+2^2*(3+1)");
-            Node n = p.parse();
+            Node n = p.Parse();
             double t = Evaluate.evaluate(n);
 
             if (t == 17.0) {
@@ -25,10 +25,10 @@ namespace Parse.Tests {
         [TestMethod()]
         public void TestMultiplicationDydx() {
             Parser p = new Parser("2*x");
-            Node n = p.parse();
+            Node n = p.Parse();
             Node dydx = Derivator.dydx(n);
 
-            Node realdydx = (new Parser("(0*x)+(1*2)")).parse();
+            Node realdydx = (new Parser("(0*x)+(1*2)")).Parse();
 
             if(!Node.IsEqual(dydx, realdydx)) {
                 Assert.Fail();
@@ -39,7 +39,7 @@ namespace Parse.Tests {
         [TestMethod()]
         public void TestConstantDydx() {
             Parser p = new Parser("10");
-            Node n = p.parse();
+            Node n = p.Parse();
             n = Derivator.dydx(n);
 
             if(n.Payload != "0") {

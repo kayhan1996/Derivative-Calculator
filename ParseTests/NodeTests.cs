@@ -182,7 +182,26 @@ namespace Parse.Tests {
             if(x.ToString() != "(2+3)") {
                 throw new Exception("ToString method error: Parenthesis error");
             }
-
         }
+
+        [TestMethod()]
+        public void TestFind() {
+            var x = new Parser("2*3*5*0+1+0");
+            var n = x.Parse();
+
+            var ln = n.Find(p => {
+                return p.Payload == "*" &&
+                p.HasLeftChild && p.HasRightChild &&
+                (p.LeftChild.Payload == "0" || p.RightChild.Payload == "0");
+            });
+
+            foreach(var node in ln) {
+                if(node.Payload == "*" && node.LeftChild.Payload == "0" || node.RightChild.Payload == "0") {
+
+                } else {
+                    throw new Exception("Find method does not return correct results");
+                }
+            }
+        } 
     }
 }

@@ -57,8 +57,9 @@
   </Choose>
   <ItemGroup>
     <Compile Include="EvaluateTests.cs" />
-    <Compile Include="Lexical Analysis\NodeTests.cs" />
+    <Compile Include="NodeTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SimplifierTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
