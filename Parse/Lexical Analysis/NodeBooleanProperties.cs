@@ -75,12 +75,18 @@ namespace Parse {
             }
         }
 
+        /// <summary>
+        /// Returns true if the current node is a root node
+        /// </summary>
         public bool IsRoot {
             get {
                 return !this.HasParent;
             }
         }
 
+        /// <summary>
+        /// Returns true if the current node is a leaf node
+        /// </summary>
         public bool IsLeaf {
             get {
                 if(!(this.HasLeftChild && this.HasRightChild)) {
