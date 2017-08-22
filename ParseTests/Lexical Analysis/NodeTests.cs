@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Parse.Tests {
     [TestClass()]
-    public class NodeNodeTests {
+    public class NodeTests {
         [TestMethod()]
         public void TestNodeConstructor() {
             Node a = new Node(payload: "2", type: Attributes.Number);
@@ -134,6 +134,34 @@ namespace Parse.Tests {
 
             if (c.IsLeftChild) {
                 throw new Exception("IsLeftChild property reports the child is a right child");
+            }
+        }
+
+        [TestMethod()]
+        public void TestIterator() {
+            Node a = new Node("2");
+            Node b = new Node("3");
+
+            Node x = new Node("*", Attributes.Term, a, b);
+
+            bool runFlag = false;
+
+            foreach (var child in x) {
+                runFlag = true;
+                switch (child.Payload) {
+                    case "2":
+                        break ;
+                    case "3":
+                        break ;
+                    case "*":
+                        break ;
+                    default:
+                        throw new Exception("Descendents not correctly iterated");
+                }
+            }
+
+            if (runFlag == false) {
+                throw new Exception("Foreach loop does not iterate correctly");
             }
         }
     }
