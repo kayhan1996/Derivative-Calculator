@@ -94,7 +94,47 @@ namespace Parse.Tests {
 
         [TestMethod()]
         public void TestIsMethods() {
-            throw new NotImplementedException();
+            Node a = new Node();
+            Node b = new Node();
+            Node c = new Node();
+            a.LeftChild = b;
+            a.RightChild = c;
+
+            if (a.IsLeaf) {
+                throw new Exception("IsLeaf property reports the node is a leaf");
+            }
+
+            if (!b.IsLeaf) {
+                throw new Exception("IsLeaf property reports the node is not a leaf");
+            }
+
+            if (!a.IsRoot) {
+                throw new Exception("IsRoot property reports the node is not a root");
+            }
+
+            if (b.IsRoot) {
+                throw new Exception("IsRoot property reports the node is a root");
+            }
+
+            if(a.IsLeftChild || a.IsRightChild) {
+                throw new Exception("Is*Child property reports that the node is a child");
+            }
+
+            if (!b.IsLeftChild) {
+                throw new Exception("IsLeftChild property reports the child is not a left child");
+            }
+
+            if(b.IsRightChild) {
+                throw new Exception("IsRightChild property reports the child is a right child");
+            }
+
+            if (!c.IsRightChild) {
+                throw new Exception("IsRightChild property reports the child is not a right child");
+            }
+
+            if (c.IsLeftChild) {
+                throw new Exception("IsLeftChild property reports the child is a right child");
+            }
         }
     }
 }

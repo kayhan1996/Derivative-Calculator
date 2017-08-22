@@ -77,7 +77,13 @@ namespace Parse {
 
         public bool IsRoot {
             get {
-                if (this.HasParent) {
+                return !this.HasParent;
+            }
+        }
+
+        public bool IsLeaf {
+            get {
+                if(!(this.HasLeftChild && this.HasRightChild)) {
                     return true;
                 }
                 return false;
