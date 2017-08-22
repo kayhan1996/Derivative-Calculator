@@ -88,12 +88,12 @@ namespace Parse {
         /// Removes the current Node subtree from the parent
         /// </summary>
         public void Delete() {
-            if(this.IsRoot()) {
+            if(this.IsRoot) {
                 this.Payload = "0";
                 this.leftChild = null;
                 this.rightChild = null;
             } else {
-                if (this.IsLeftChild()) {
+                if (this.IsLeftChild) {
                     this.Parent.leftChild = null;
                 } else {
                     this.Parent.rightChild = null;
@@ -108,11 +108,11 @@ namespace Parse {
                 s = "(";
             }
 
-            if (HasLeftChild()) {
+            if (this.HasLeftChild) {
                 s += leftChild.ToString();
             }
             s += Payload;
-            if (HasRightChild()) {
+            if (this.HasRightChild) {
                 s += rightChild;
             }
 
@@ -123,7 +123,7 @@ namespace Parse {
         }
 
         public IEnumerator<Node> GetEnumerator() {
-            if (HasLeftChild()) {
+            if (this.HasLeftChild) {
                 foreach (var v in leftChild) {
                     yield return v;
                 }
@@ -131,7 +131,7 @@ namespace Parse {
 
             yield return this;
 
-            if (HasRightChild()) {
+            if (this.HasRightChild) {
                 foreach (var v in rightChild) {
                     yield return v;
                 }

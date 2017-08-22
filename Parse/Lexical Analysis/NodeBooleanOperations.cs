@@ -11,32 +11,38 @@ namespace Parse {
         /// Returns true if the current node has a left child
         /// </summary>
         /// <returns></returns>
-        public bool HasLeftChild() {
-            if (this.leftChild != null) {
-                return true;
+        public bool HasLeftChild {
+            get {
+                if (this.leftChild != null) {
+                    return true;
+                }
+                return false;
             }
-            return false;
         }
         /// <summary>
         /// Returns true if the current node has a right child
         /// </summary>
         /// <returns></returns>
-        public bool HasRightChild() {
-            if (this.rightChild != null) {
-                return true;
+        public bool HasRightChild {
+            get{
+                if (this.rightChild != null) {
+                    return true;
+                }
+                return false;
             }
-            return false;
         }
 
         /// <summary>
         /// Returns true if the current node has a Parent
         /// </summary>
         /// <returns></returns>
-        public bool HasParent() {
-            if (this.Parent != null) {
-                return true;
+        public bool HasParent {
+            get {
+                if (this.Parent != null) {
+                    return true;
+                }
+                return false;
             }
-            return false;
         }
 
         /// <summary>
@@ -45,11 +51,13 @@ namespace Parse {
         /// </summary>
         /// <param name="n"></param>
         /// <returns></returns>
-        public bool IsLeftChild() {
-            if (this.HasParent() && this.Parent.leftChild == this) {
-                return true;
+        public bool IsLeftChild {
+            get {
+                if (this.HasParent && this.Parent.leftChild == this) {
+                    return true;
+                }
+                return false;
             }
-            return false;
         }
 
         /// <summary>
@@ -58,18 +66,22 @@ namespace Parse {
         /// </summary>
         /// <param name="n"></param>
         /// <returns></returns>
-        public bool IsRightChild() {
-            if(this.HasParent() && this.Parent.rightChild == this) {
-                return true;
+        public bool IsRightChild {
+            get {
+                if (this.HasParent && this.Parent.rightChild == this) {
+                    return true;
+                }
+                return false;
             }
-            return false;
         }
 
-        public bool IsRoot() {
-            if(this.Parent == null) {
-                return true;
+        public bool IsRoot {
+            get {
+                if (this.HasParent) {
+                    return true;
+                }
+                return false;
             }
-            return false;
         }
 
         /// <summary>

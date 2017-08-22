@@ -15,11 +15,11 @@ namespace Parse.Tests {
             Node b = new Node(payload: "3", type: Attributes.Number);
             Node n = new Node(payload: "*", type: Attributes.Term, leftChild: a, rightChild: b);
 
-            if (n.IsRoot() != true) {
+            if (n.IsRoot != true) {
                 throw new Exception("Node is not a root");
             }
 
-            if (a.IsRoot()) {
+            if (a.IsRoot) {
                 throw new Exception("Node is root");
             }
 
@@ -69,7 +69,7 @@ namespace Parse.Tests {
 
             x.LeftChild.Delete();
 
-            if (x.HasLeftChild()) {
+            if (x.HasLeftChild) {
                 throw new Exception("Child not deleted");
             }
         }
@@ -81,11 +81,11 @@ namespace Parse.Tests {
             var b = new Node("3", Attributes.Number);
             x.LeftChild = a; x.RightChild = b;
 
-            if(x.HasParent() || !a.HasParent() || !b.HasParent()) {
+            if(x.HasParent || !a.HasParent || !b.HasParent) {
                 throw new Exception("HasParent method broken");
             }
 
-            if(!x.HasLeftChild() || !x.HasRightChild() || a.HasRightChild() || a.HasLeftChild()) {
+            if(!x.HasLeftChild || !x.HasRightChild || a.HasRightChild || a.HasLeftChild) {
                 throw new Exception("Has*Child methods broken");
             }
 

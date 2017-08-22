@@ -12,7 +12,7 @@ namespace Parse {
         }
 
         public static double eval(Node n) {
-            if (n.Attribute == Attributes.Number || !(n.HasLeftChild() && n.HasRightChild())) {
+            if (n.Attribute == Attributes.Number || !(n.HasLeftChild && n.HasRightChild)) {
                 return Double.Parse(n.Payload);
             } else {
                 double x = eval(n.LeftChild);
