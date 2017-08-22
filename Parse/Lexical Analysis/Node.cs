@@ -7,105 +7,122 @@ using System.Threading.Tasks;
 
 namespace Parse {
     public partial class Node : IEnumerable<Node> {
-        public String payload;
-        public Types type;
-        public Node leftChild;
-        public Node rightChild;
-        public Node parent;
+        private String payload;
+        private Attributes attribute;
+        private Node leftChild;
+        private Node rightChild;
+        private Node parent;
 
-        public Node(String payload, Types type) {
-            this.payload = payload;
-            this.type = type;
+        public Node(String payload = "", Attributes type = Attributes.Empty, Node leftChild = null, Node rightChild = null) {
+            this.Payload = payload;
+            this.Attribute = type;
+            this.leftChild = leftChild;
+            this.rightChild = rightChild;
+        }
 
-            this.leftChild = null;
-            this.rightChild = null;
-        }
-        public void addLeftChild(Node n) {
-            this.leftChild = n;
-            n.parent = this;
-        }
-        public void addRightChild(Node n) {
-            this.rightChild = n;
-            n.parent = this;
-        }
-        public bool hasLeftChild() {
-            if (this.leftChild != null) {
-                return true;
+        /// <summary>
+        /// Accessors for the left child node of the current object
+        /// </summary>
+        public Node LeftChild {
+            get {
+                return leftChild;
             }
-            return false;
-        }
-        public bool hasRightChild() {
-            if (this.rightChild != null) {
-                return true;
+
+            set {
+                this.leftChild = value;
+                value.Parent = this;
             }
-            return false;
         }
-        public bool hasParent() {
-            if(this.parent != null) {
-                return true;
+
+        /// <summary>
+        /// Accessors for the right child node of the current object
+        /// </summary>
+        public Node RightChild {
+            get {
+                return rightChild;
             }
-            return false;
-        }
-        public static bool isEqual(Node a, Node b) {
-            if(a == null && b == null) {
-                return true;
-            }else if (a.payload == b.payload) {
-                return true && isEqual(a.leftChild, b.leftChild) && isEqual(a.rightChild, b.rightChild);
+            set {
+                this.rightChild = value;
+                value.Parent = this;
             }
-            return false;
         }
+
+        /// <summary>
+        /// Accessors for the Parent node of the current object
+        /// </summary>
+        public Node Parent {
+            get {
+                return parent;
+            }
+
+            protected set {
+                this.parent = value;
+            }
+        }
+
+        /// <summary>
+        /// Accessors for the type of the current object
+        /// </summary>
+        public Attributes Attribute {
+            get { return attribute;  }
+            set { attribute = value; }
+        }
+
+        public String Payload {
+            get { return payload; }
+            set { payload = value; }
+        }
+
+        /// <summary>
+        /// Replaces the current node with Node n
+        /// </summary>
+        /// <param name="n"></param>
         public void replaceCurrentNode(Node n) {
-            if (hasParent()) {
-                if(parent.leftChild == this) {
-                    parent.leftChild = n;
+            this.LeftChild = n.LeftChild;
+            this.RightChild = n.RightChild;
+            this.Attribute = n.Attribute;
+        }
+
+        /// <summary>
+        /// Removes the current Node subtree from the parent
+        /// </summary>
+        public void Delete() {
+            if(this.IsRoot()) {
+                this.Payload = "0";
+                this.leftChild = null;
+                this.rightChild = null;
+            } else {
+                if (this.IsLeftChild()) {
+                    this.Parent.leftChild = null;
                 } else {
-                    parent.rightChild = n;
+                    this.Parent.rightChild = null;
                 }
             }
         }
-        public string getTree(Node n) {
+
+        public override string ToString() {
             string s = "";
 
-            if (n.type == Types.Parenthesized) {
+            if (Attribute == Attributes.Parenthesized) {
                 s = "(";
             }
 
-            if (n.hasLeftChild()) {
-                s += getTree(n.leftChild);
+            if (HasLeftChild()) {
+                s += leftChild.ToString();
             }
-            s += n.payload;
-            if (n.hasRightChild()) {
-                s += getTree(n.rightChild);
+            s += Payload;
+            if (HasRightChild()) {
+                s += rightChild;
             }
 
-            if (n.type == Types.Parenthesized) {
+            if (Attribute == Attributes.Parenthesized) {
                 s += ")";
             }
             return s;
         }
 
-        public void delete() {
-            if(this.parent != null) {
-                if(this.parent.leftChild == this) {
-                    this.parent.leftChild = null;
-                } else {
-                    this.parent.rightChild = null;
-                }
-            } else {
-                this.payload = "0";
-                this.leftChild = null;
-                this.rightChild = null;
-            }
-        }
-
-        
-
-        public override string ToString() {
-            return getTree(this);
-        }
-
         public IEnumerator<Node> GetEnumerator() {
-            if (hasLeftChild()) {
+            if (HasLeftChild()) {
                 foreach (var v in leftChild) {
                     yield return v;
                 }
@@ -113,7 +130,7 @@ namespace Parse {
 
             yield return this;
 
-            if (hasRightChild()) {
+            if (HasRightChild()) {
                 foreach (var v in rightChild) {
                     yield return v;
                 }

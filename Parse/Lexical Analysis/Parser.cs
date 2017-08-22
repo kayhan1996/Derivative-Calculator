@@ -67,8 +67,8 @@ namespace Parse {
                 operationNode = number ^ Number();
                 number = operationNode;
 
-                if (number.leftChild.type == Types.Variable && number.rightChild.type == Types.Number)
-                    number.type = Types.Polynomial;
+                if (number.LeftChild.Attribute == Attributes.Variable && number.RightChild.Attribute == Attributes.Number)
+                    number.Attribute = Attributes.Polynomial;
 
                 op = t.getNextToken();
 
@@ -82,19 +82,19 @@ namespace Parse {
             Token token = t.getNextToken();
 
             if (token.type == "Number") {
-                Node n = new Node(token.payload, Types.Number);
-                n.type = Types.Number;
+                Node n = new Node(token.payload, Attributes.Number);
+                n.Attribute = Attributes.Number;
                 return n;
             }else if (token.type == "Variable") {
-                Node n = new Node(token.payload, Types.Variable);
-                n.type = Types.Variable;
+                Node n = new Node(token.payload, Attributes.Variable);
+                n.Attribute = Attributes.Variable;
                 return n;
             }else if(token.type == "LeftBracket") {
                 Node statement = Statement();
                 if(t.getNextToken().type != "RightBracket") {
                     throw new System.Exception("Missing right bracket.");
                 }
-                statement.type = Types.Parenthesized;
+                statement.Attribute = Attributes.Parenthesized;
                 return statement;
             } else {
                 throw new System.Exception("Unhandled Number Error.");

@@ -10,9 +10,7 @@ namespace Parse {
         static void Main(string[] args) {
             Parser p = new Parser("x*x*x*x^3*y*z");
             Node n = p.parse();
-
-            Simplifier s = new Simplifier(n);
-            s.simplify();
+            string s = n.ToString();
         }
     }
 }

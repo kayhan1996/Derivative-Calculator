@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 namespace Parse.Tests {
     [TestClass()]
     public class EvaluateTests {
+
         [TestMethod()]
         public void evaluationTest() {
             Parser p = new Parser("(1+0)^2+2^2*(3+1)");
@@ -29,7 +30,7 @@ namespace Parse.Tests {
 
             Node realdydx = (new Parser("(0*x)+(1*2)")).parse();
 
-            if(!Node.isEqual(dydx, realdydx)) {
+            if(!Node.IsEqual(dydx, realdydx)) {
                 Assert.Fail();
             }
 
@@ -41,17 +42,7 @@ namespace Parse.Tests {
             Node n = p.parse();
             n = Derivator.dydx(n);
 
-            if(n.payload != "0") {
-                Assert.Fail();
-            }
-        }
-
-        [TestMethod()]
-        public void polynomialDydx() {
-            Parser p = new Parser("4*x^3");
-            Node n = Derivator.dydx(p.parse());
-            Node real = new Parser("12*x^2").parse();
-            if(!Node.isEqual(n, real)) {
+            if(n.Payload != "0") {
                 Assert.Fail();
             }
         }

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Parse {
-    public enum Types {
+    public enum Attributes {
         Variable, Number, Parenthesized, Factor, Polynomial, Exponent, Statement, Empty
     }
 }

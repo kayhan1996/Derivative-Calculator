@@ -7,23 +7,23 @@ using System.Threading.Tasks;
 namespace Parse {
     public class Derivator {
         public static Node dydx(Node n) {
-            Node derivative = new Node("0", Types.Number);
-            if(n.payload == "^") {
-                if(n.leftChild.type == Types.Variable && n.rightChild.type == Types.Number) {
-                    derivative = (n.rightChild) * (n.leftChild ^ (n.rightChild - 1));
+            Node derivative = new Node("0", Attributes.Number);
+            if(n.Payload == "^") {
+                if(n.LeftChild.Attribute == Attributes.Variable && n.RightChild.Attribute == Attributes.Number) {
+                    derivative = (n.RightChild) * (n.LeftChild ^ (n.RightChild - 1));
                 }
-            }else if(n.payload == "*") {
-                derivative = (dydx(n.leftChild) * (n.rightChild)) + (dydx(n.rightChild) * (n.leftChild));
-                derivative.leftChild.type = Types.Parenthesized;
-                derivative.rightChild.type = Types.Parenthesized;
-            }else if(n.payload == "+") {
-                derivative = dydx(n.leftChild) + dydx(n.rightChild);
-                derivative.type = Types.Parenthesized;
-            } else if(n.payload == "/") {
-                derivative = ((n.rightChild * dydx(n.leftChild)) - (n.leftChild * dydx(n.rightChild))) / (n.rightChild ^ 2);
-            }else if(n.type == Types.Variable) {
-                derivative = new Node("1", Types.Number);
-            }else if(n.type == Types.Number) {
+            }else if(n.Payload == "*") {
+                derivative = (dydx(n.LeftChild) * (n.RightChild)) + (dydx(n.RightChild) * (n.LeftChild));
+                derivative.LeftChild.Attribute = Attributes.Parenthesized;
+                derivative.RightChild.Attribute = Attributes.Parenthesized;
+            }else if(n.Payload == "+") {
+                derivative = dydx(n.LeftChild) + dydx(n.RightChild);
+                derivative.Attribute = Attributes.Parenthesized;
+            } else if(n.Payload == "/") {
+                derivative = ((n.RightChild * dydx(n.LeftChild)) - (n.LeftChild * dydx(n.RightChild))) / (n.RightChild ^ 2);
+            }else if(n.Attribute == Attributes.Variable) {
+                derivative = new Node("1", Attributes.Number);
+            }else if(n.Attribute == Attributes.Number) {
                 //Do nothing as the node is already set to "0"
             }
             return derivative;

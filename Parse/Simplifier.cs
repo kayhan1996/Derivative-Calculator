@@ -18,18 +18,18 @@ namespace Parse {
 
             foreach(Node n in syntaxTree) {
 
-                if (n.type == Types.Number) {
-                    Numbers.Push(Double.Parse(n.payload));
-                }else if (n.type == Types.Variable) {
-                    if (Variables.ContainsKey(n.payload)) {
-                        Variables[n.payload] += 1.0;
+                if (n.Attribute == Attributes.Number) {
+                    Numbers.Push(Double.Parse(n.Payload));
+                }else if (n.Attribute == Attributes.Variable) {
+                    if (Variables.ContainsKey(n.Payload)) {
+                        Variables[n.Payload] += 1.0;
                     } else {
-                        Variables.Add(n.payload, 1.0);
+                        Variables.Add(n.Payload, 1.0);
                     }
-                }else if(n.type == Types.Polynomial) {
-                    string variable = n.leftChild.payload;
-                    int exponent = int.Parse(n.rightChild.payload);
-                    if (Variables.ContainsKey(n.leftChild.payload)) {
+                }else if(n.Attribute == Attributes.Polynomial) {
+                    string variable = n.LeftChild.Payload;
+                    int exponent = int.Parse(n.RightChild.Payload);
+                    if (Variables.ContainsKey(n.LeftChild.Payload)) {
                         Variables[variable] += exponent;
                     } else {
                         Variables.Add(variable, exponent);
@@ -37,7 +37,7 @@ namespace Parse {
                 }
             }
 
-            Node st = new Node("", Types.Empty);
+            Node st = new Node("", Attributes.Empty);
             foreach(var key in Variables) {
                 Console.WriteLine(key);
             }

@@ -12,21 +12,21 @@ namespace Parse {
         }
 
         public static double eval(Node n) {
-            if (n.type == Types.Number || !(n.hasLeftChild() && n.hasRightChild())) {
-                return Double.Parse(n.payload);
+            if (n.Attribute == Attributes.Number || !(n.HasLeftChild() && n.HasRightChild())) {
+                return Double.Parse(n.Payload);
             } else {
-                double x = eval(n.leftChild);
-                double y = eval(n.rightChild);
+                double x = eval(n.LeftChild);
+                double y = eval(n.RightChild);
 
-                if(n.payload == "*") {
+                if(n.Payload == "*") {
                     return x * y;
-                }else if(n.payload == "/") {
+                }else if(n.Payload == "/") {
                     return x / y;
-                }else if(n.payload == "+") {
+                }else if(n.Payload == "+") {
                     return x + y;
-                }else if(n.payload == "-") {
+                }else if(n.Payload == "-") {
                     return x - y;
-                }else if(n.payload == "^") {
+                }else if(n.Payload == "^") {
                     return Math.Pow(x, y);
                 }else {
                     throw new System.Exception("Unkown Error");
