@@ -14,7 +14,7 @@ namespace Parse.Tests {
         public void TestEvaluation() {
             Parser p = new Parser("(1+0)^2+2^2*(3+1)");
             Node n = p.parse();
-            double t = Evaluate.eval(n);
+            double t = Evaluate.evaluate(n);
 
             if (t == 17.0) {
                 return;
