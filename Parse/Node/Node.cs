@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace Parse {
     public partial class Node : IEnumerable<Node> {
-        private String payload;
-        private Attributes attribute;
+        protected String payload;
+        protected Attributes attribute;
         private Node leftChild;
         private Node rightChild;
         private Node parent;

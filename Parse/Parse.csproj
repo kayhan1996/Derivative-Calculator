@@ -51,6 +51,7 @@
     <Compile Include="Node\NodeFindAndReplace.cs" />
     <Compile Include="Node\NodeOperators.cs" />
     <Compile Include="Node\NodeBooleanProperties.cs" />
+    <Compile Include="Number.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Lexical Analysis\Tokenizer.cs" />
     <Compile Include="Simplifier.cs" />

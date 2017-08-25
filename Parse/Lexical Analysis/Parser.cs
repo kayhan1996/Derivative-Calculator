@@ -82,9 +82,8 @@ namespace Parse {
             Token token = t.getNextToken();
 
             if (token.type == "Number") {
-                Node n = new Node(token.payload, Attributes.Number);
-                n.Attribute = Attributes.Number;
-                return n;
+                Node number = new Number(token.payload);
+                return number;
             }else if (token.type == "Variable") {
                 Node n = new Node(token.payload, Attributes.Variable);
                 n.Attribute = Attributes.Variable;
