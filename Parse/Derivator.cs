@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Parse {
     public class Derivator {
         public static Node dydx(Node n) {
-            Node derivative = new Node("0", Attributes.Number);
+            Node derivative = new Node("Empty", Attributes.Empty);
 
             if (n.Payload == "^") {
 
@@ -35,7 +35,7 @@ namespace Parse {
                 derivative = new Node("1", Attributes.Number);
 
             } else if (n.Attribute == Attributes.Number) {
-                //Do nothing as the node is already set to "0"
+                derivative = new Node("0", Attributes.Number);
             }
 
             return derivative;
