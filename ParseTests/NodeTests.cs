@@ -197,16 +197,12 @@ namespace Parse.Tests {
         }
         [TestMethod]
         public void TestBFS() {
-            var p = new Parser("2*x+3*(x+2)+7*x*x+x^3*(x+4)").Parse();
-            var terms = p.BFS(x => x.Payload != "+").ToList();
+            var p = new Parser("3*x*x*x").Parse();
+            Simplify.SimplifyExpression(p);
 
-            foreach(var term in terms) {
-                var factors = term.BFS(x => x.Payload != "*").ToList();
-                Console.WriteLine();
+            if (p.ToString() != "3*x^3") {
+                throw new Exception("BFS failed");
             }
-
-            
-            throw new Exception("BFS failed");
         } 
     }
 }

@@ -11,6 +11,7 @@ namespace Parse {
             ZeroAddition(expression);
             PowersOfOne(expression);
             PowersOfZero(expression);
+            SimplifyFactors(expression);
         }
 
         public static void ZeroMultiplication(Node n) {
@@ -76,7 +77,14 @@ namespace Parse {
         }
 
         public static void SimplifyFactors(Node n) {
-            var Factors = n.Where(x => x.Payload != "+").ToList();
+            var terms = n.BFS(x => x.Payload != "+").ToList();
+
+            var expression = new Node();
+            foreach (var term in terms) {
+                expression += new Term(term).ToNode();
+            }
+
+            n.Replace(expression);
         }
 
  

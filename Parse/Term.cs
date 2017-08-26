@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 namespace Parse {
     public class Term {
         List<Node> Factors;
+        int FactorCount;
         double Numbers;
         Dictionary<String, double> Variables;
         Dictionary<Node, double> Functions;
@@ -19,7 +20,10 @@ namespace Parse {
                 Functions = new Dictionary<Node, double>();
                 /*Seperate the factors into a list for quick access*/
                 Factors = n.BFS(x => x.Payload != "*").ToList();
+                /*Set to 1 since a term has atleast 1 factor*/
+                FactorCount = 1;
                 SortFactors();
+
             }
         }
 
@@ -31,6 +35,10 @@ namespace Parse {
                     Update(Variables, factor.Payload, "1");
                 }else if(factor.Attribute == Attributes.Polynomial) {
                     Update(Variables, factor.LeftChild.Payload, factor.RightChild.Payload);
+                }else if(factor.Attribute == Attributes.Exponent) {
+                    Update(Functions, factor.LeftChild, factor.RightChild.Payload);
+                } else {
+                    Update(Functions, factor, "1");
                 }
             }
         }
@@ -45,7 +53,9 @@ namespace Parse {
                 } else {
                     Node n1 = new Node(factor.Key, Attributes.Factor);
                     Node n2 = new Node(factor.Value.ToString(), Attributes.Number);
-                    yield return (n1 ^ n2);
+                    Node tmp = n1 ^ n2;
+                    tmp.Attribute = Attributes.Polynomial;
+                    yield return tmp;
                 }
             }
             foreach(var factor in Functions) {
@@ -59,11 +69,20 @@ namespace Parse {
             }
         }
 
-        private static void Update<TKey>(Dictionary<TKey, double> dict, TKey function, string exponent) {
+        public Node ToNode() {
+            Node tmp = new Node();
+            foreach(var element in this.ToList()) {
+                tmp *= element;
+            }
+            return tmp;
+        }
+
+        private void Update<TKey>(Dictionary<TKey, double> dict, TKey function, string exponent) {
             if (dict.ContainsKey(function)) {
                 dict[function] += double.Parse(exponent);
             } else {
                 dict.Add(function, double.Parse(exponent));
+                FactorCount += 1;
             }
         }
     }

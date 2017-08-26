@@ -11,7 +11,8 @@ namespace Parse {
             t = new Tokenizer(equation);
         }
         public Node Parse() {
-            return Statement();
+            var expression = Statement();
+            return expression;
         }
         public Node Statement() {
             Node statement = Factor();
@@ -66,10 +67,9 @@ namespace Parse {
             while (op.payload == "^") {
                 operationNode = number ^ Number();
                 number = operationNode;
-
+                number.Attribute = Attributes.Exponent;
                 if (number.LeftChild.Attribute == Attributes.Variable && number.RightChild.Attribute == Attributes.Number)
                     number.Attribute = Attributes.Polynomial;
-
                 op = t.getNextToken();
 
             }
