@@ -185,7 +185,7 @@ namespace Parse.Tests {
         }
 
         [TestMethod()]
-        public void TestFindAll() {
+        public void TestFind() {
             var x = new Parser("2*3*5*0+1+0");
             var n = x.Parse();
             var ln = n.Where(p => p.Payload == "*" && p.IsBranch && p.EitherChildren(a => a.Payload == "0")).ToList();
