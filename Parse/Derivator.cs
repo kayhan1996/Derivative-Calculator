@@ -18,13 +18,13 @@ namespace Parse {
             } else if (n.Payload == "*") {
 
                 derivative = (dydx(n.LeftChild) * (n.RightChild)) + (dydx(n.RightChild) * (n.LeftChild));
-                derivative.LeftChild.Attribute = Attributes.Parenthesized;
-                derivative.RightChild.Attribute = Attributes.Parenthesized;
+                derivative.LeftChild.IsParenthesized = true;
+                derivative.RightChild.IsParenthesized = true;
 
             } else if (n.Payload == "+") {
 
                 derivative = dydx(n.LeftChild) + dydx(n.RightChild);
-                derivative.Attribute = Attributes.Parenthesized;
+                derivative.IsParenthesized = true;
 
             } else if (n.Payload == "/") {
 

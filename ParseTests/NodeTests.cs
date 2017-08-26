@@ -177,7 +177,7 @@ namespace Parse.Tests {
             }
 
             x.Payload = "+";
-            x.Attribute = Attributes.Parenthesized;
+            x.IsParenthesized = true;
 
             if(x.ToString() != "(2+3)") {
                 throw new Exception("ToString method error: Parenthesis error");

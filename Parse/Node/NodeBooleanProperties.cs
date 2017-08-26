@@ -81,6 +81,11 @@ namespace Parse {
         public bool IsStatement => IsBranch && (Payload == "+" || Payload == "-");
 
         /// <summary>
+        /// Checks if the current node is inside brackets
+        /// </summary>
+        public bool IsParenthesized { get; set; }
+
+        /// <summary>
         /// If either child matches the predicate the method returns true
         /// </summary>
         /// <param name="predicate"></param>

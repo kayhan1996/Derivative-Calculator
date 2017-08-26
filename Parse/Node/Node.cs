@@ -122,7 +122,7 @@ namespace Parse {
         public string ToFormattedString() {
             string s = "";
 
-            if (Attribute == Attributes.Parenthesized) {
+            if (IsParenthesized) {
                 s = "(";
             }
 
@@ -138,7 +138,7 @@ namespace Parse {
                 s += rightChild.ToFormattedString();
             }
 
-            if (Attribute == Attributes.Parenthesized) {
+            if (IsParenthesized) {
                 s += ")";
             }
             return s;
@@ -147,7 +147,7 @@ namespace Parse {
         public override string ToString() {
             string s = "";
 
-            if (Attribute == Attributes.Parenthesized) {
+            if (IsParenthesized) {
                 s = "(";
             }
 
@@ -159,7 +159,7 @@ namespace Parse {
                 s += rightChild;
             }
 
-            if (Attribute == Attributes.Parenthesized) {
+            if (IsParenthesized) {
                 s += ")";
             }
             return s;

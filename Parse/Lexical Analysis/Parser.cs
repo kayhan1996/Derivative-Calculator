@@ -106,8 +106,7 @@ namespace Parse {
                 if(t.getNextToken().type != "RightBracket") {
                     throw new System.Exception("Missing right bracket.");
                 }
-                if(statement.IsStatement)
-                    statement.Attribute = Attributes.Parenthesized;
+                statement.IsParenthesized = true;
                 return statement;
             } else {
                 throw new System.Exception("Unhandled Factor Error.");
