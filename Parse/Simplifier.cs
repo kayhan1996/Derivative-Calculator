@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 namespace Parse {
     public class Simplify {
         public static void SimplifyExpression(Node expression) {
+            NumericalPowers(expression);
             ZeroMultiplication(expression);
             ZeroAddition(expression);
             PowersOfOne(expression);
@@ -30,12 +31,8 @@ namespace Parse {
         }
 
         public static void ZeroAddition(Node n) {
-            Func<Node, bool> predicate = x => {
-                return
-                x.Payload == "+" &&
-                x.HasLeftChild && x.HasRightChild &&
-                (x.LeftChild.Payload == "0" || x.RightChild.Payload == "0");
-            };
+            Func<Node, bool> predicate = x => x.IsStatement && x.EitherChildren(a => a.Payload == "0");
+            
 
             Action<Node> action = x => {
                 if(x.LeftChild.Payload == "0") {
@@ -76,8 +73,22 @@ namespace Parse {
             FindAndReplace(n, predicate, action);
         }
 
+        public static void NumericalPowers(Node n) {
+            Func<Node, bool> predicate = x => x.Payload == "^" && x.BothChildren(a => a.IsNumber);
+
+            Action<Node> action = x => {
+                var eBase = double.Parse(x.LeftChild.Payload);
+                var ePower = double.Parse(x.RightChild.Payload);
+                var tmp = Math.Pow(eBase, ePower);
+                var num = new Node(tmp.ToString(), Attributes.Number);
+                x.Replace(num);
+            };
+
+            FindAndReplace(n, predicate, action);
+        }
+
         public static void SimplifyFactors(Node n) {
-            var terms = n.BFS(x => x.Payload != "+").ToList();
+            var terms = n.BFS(x => !x.IsStatement).ToList();
 
             var expression = new Node();
             foreach (var term in terms) {
@@ -86,7 +97,6 @@ namespace Parse {
 
             n.Replace(expression);
         }
-
  
         private static void FindAndReplace(Node n, Func<Node, bool> p, Action<Node> a) {
             var node = n.FirstOrDefault(p);

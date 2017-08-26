@@ -45,7 +45,7 @@ namespace Parse
             return n;
         }
         public static Node operator ^(Node x1, double x2) {
-            Node n = new Node("-", Attributes.Exponent);
+            Node n = new Node("^", Attributes.Exponent);
             n.LeftChild = x1;
             n.RightChild = new Node(x2.ToString(), Attributes.Exponent);
             return n;

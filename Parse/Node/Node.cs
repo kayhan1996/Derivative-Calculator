@@ -18,6 +18,7 @@ namespace Parse {
             this.Attribute = attribute;
             this.LeftChild = leftChild;
             this.RightChild = rightChild;
+            this.IsParenthesized = false;
         }
 
         /// <summary>

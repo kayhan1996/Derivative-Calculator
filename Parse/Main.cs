@@ -17,14 +17,6 @@ namespace Parse {
                 Simplify.SimplifyExpression(derivative);
                 Console.WriteLine(derivative.ToFormattedString());
             }
-            /*
-            var n = new Parser("2*x^2").Parse();
-            n = Derivator.dydx(n);
-            Simplify.SimplifyExpression(n);
-            Console.WriteLine(n);
-
-            Console.Read();
-            */
         }
     }
 }

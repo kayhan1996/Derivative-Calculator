@@ -24,8 +24,16 @@ namespace Parse {
             } else if (n.Payload == "+") {
                 derivative = dydx(n.LeftChild) + dydx(n.RightChild);
             } else if (n.Payload == "/") {
+                var dT1 = n.RightChild * dydx(n.LeftChild);
+                var dT2 = n.LeftChild * dydx(n.RightChild);
+                var dB = n.RightChild ^ 2;
+                derivative = (dT1 - dT2)/dB;
 
-                derivative = ((n.RightChild * dydx(n.LeftChild)) - (n.LeftChild * dydx(n.RightChild))) / (n.RightChild ^ 2);
+                derivative.LeftChild.IsParenthesized = true;
+                derivative.RightChild.IsParenthesized = true;
+
+                Simplify.SimplifyExpression(derivative.LeftChild);
+                Simplify.SimplifyExpression(derivative.RightChild);
 
             } else if (n.IsVariable) {
 

@@ -26,9 +26,9 @@ namespace Parse {
 
         private void SortFactors() {
             foreach(var factor in Factors) {
-                if(factor.Attribute == Attributes.Number) {
+                if(factor.IsNumber) {
                     Numbers *= double.Parse(factor.Payload);
-                }else if(factor.Attribute == Attributes.Variable) {
+                }else if(factor.IsVariable) {
                     Update(Variables, factor.Payload, "1");
                 }else if(factor.IsPolynomial) {
                     Update(Variables, factor.LeftChild.Payload, factor.RightChild.Payload);
@@ -41,7 +41,7 @@ namespace Parse {
         }
 
         public IEnumerable<Node> ToList() {
-            if(Numbers != 1.0) {
+            if(Numbers != 1.0 || (Variables.Count == 0 && Functions.Count == 0)) {
                 yield return new Node(Numbers.ToString(), Attributes.Number);
             }
             foreach(var factor in Variables) {
