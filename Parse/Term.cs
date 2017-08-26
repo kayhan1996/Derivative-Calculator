@@ -19,6 +19,7 @@ namespace Parse {
                 Functions = new Dictionary<Node, double>();
                 /*Seperate the factors into a list for quick access*/
                 Factors = n.BFS(x => x.Payload != "*").ToList();
+                SortFactors();
             }
         }
 
@@ -34,7 +35,31 @@ namespace Parse {
             }
         }
 
-        public static void Update<TKey>(Dictionary<TKey, double> dict, TKey function, string exponent) {
+        public IEnumerable<Node> ToList() {
+            if(Numbers != 1.0) {
+                yield return new Node(Numbers.ToString(), Attributes.Number);
+            }
+            foreach(var factor in Variables) {
+                if(factor.Value == 1.0) {
+                    yield return new Node(factor.Key, Attributes.Variable);
+                } else {
+                    Node n1 = new Node(factor.Key, Attributes.Factor);
+                    Node n2 = new Node(factor.Value.ToString(), Attributes.Number);
+                    yield return (n1 ^ n2);
+                }
+            }
+            foreach(var factor in Functions) {
+                if (factor.Value == 1.0) {
+                    yield return factor.Key;
+                } else {
+                    Node n1 = factor.Key;
+                    Node n2 = new Node(factor.Value.ToString(), Attributes.Number);
+                    yield return (n1 ^ n2);
+                }
+            }
+        }
+
+        private static void Update<TKey>(Dictionary<TKey, double> dict, TKey function, string exponent) {
             if (dict.ContainsKey(function)) {
                 dict[function] += double.Parse(exponent);
             } else {
