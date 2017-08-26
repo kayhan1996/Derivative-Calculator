@@ -13,6 +13,10 @@ namespace Parse {
 
                 if (n.IsPolynomial) {
                     derivative = (n.RightChild) * (n.LeftChild ^ (n.RightChild - 1));
+                } else if (n.IsFunction) {
+                    var dfx = n.RightChild * (n.LeftChild ^ (n.RightChild - 1));
+                    var dgx = dydx(n.LeftChild);
+                    derivative = dfx * dgx;
                 }
 
             } else if (n.Payload == "*") {
@@ -24,6 +28,7 @@ namespace Parse {
             } else if (n.Payload == "+") {
                 derivative = dydx(n.LeftChild) + dydx(n.RightChild);
             } else if (n.Payload == "/") {
+
                 var dT1 = n.RightChild * dydx(n.LeftChild);
                 var dT2 = n.LeftChild * dydx(n.RightChild);
                 var dB = n.RightChild ^ 2;
@@ -36,9 +41,7 @@ namespace Parse {
                 Simplify.SimplifyExpression(derivative.RightChild);
 
             } else if (n.IsVariable) {
-
                 derivative = new Node("1", Attributes.Number);
-
             } else if (n.IsNumber) {
                 derivative = new Node("0", Attributes.Number);
             }
