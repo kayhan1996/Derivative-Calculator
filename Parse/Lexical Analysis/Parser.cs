@@ -84,8 +84,6 @@ namespace Parse {
                 operationNode = number ^ Number();
                 number = operationNode;
                 number.Attribute = Attributes.Exponent;
-                if (number.LeftChild.Attribute == Attributes.Variable && number.RightChild.Attribute == Attributes.Number)
-                    number.Attribute = Attributes.Polynomial;
                 op = t.getNextToken();
 
             }

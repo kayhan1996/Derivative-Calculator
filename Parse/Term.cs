@@ -13,7 +13,6 @@ namespace Parse {
         Dictionary<String, double> Variables;
         Dictionary<Node, double> Functions;
         public Term(Node n) {
-            if(n.Payload == "*") {
                 /*Initialize the 3 types of factors for sorting*/
                 Numbers = 1;
                 Variables = new Dictionary<string, double>();
@@ -23,8 +22,6 @@ namespace Parse {
                 /*Set to 1 since a term has atleast 1 factor*/
                 FactorCount = 1;
                 SortFactors();
-
-            }
         }
 
         private void SortFactors() {
@@ -33,7 +30,7 @@ namespace Parse {
                     Numbers *= double.Parse(factor.Payload);
                 }else if(factor.Attribute == Attributes.Variable) {
                     Update(Variables, factor.Payload, "1");
-                }else if(factor.Attribute == Attributes.Polynomial) {
+                }else if(factor.IsPolynomial) {
                     Update(Variables, factor.LeftChild.Payload, factor.RightChild.Payload);
                 }else if(factor.Attribute == Attributes.Exponent) {
                     Update(Functions, factor.LeftChild, factor.RightChild.Payload);
@@ -54,7 +51,6 @@ namespace Parse {
                     Node n1 = new Node(factor.Key, Attributes.Factor);
                     Node n2 = new Node(factor.Value.ToString(), Attributes.Number);
                     Node tmp = n1 ^ n2;
-                    tmp.Attribute = Attributes.Polynomial;
                     yield return tmp;
                 }
             }

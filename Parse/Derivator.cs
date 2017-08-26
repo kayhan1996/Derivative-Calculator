@@ -11,7 +11,7 @@ namespace Parse {
 
             if (n.Payload == "^") {
 
-                if (n.Attribute == Attributes.Polynomial) {
+                if (n.IsPolynomial) {
                     derivative = (n.RightChild) * (n.LeftChild ^ (n.RightChild - 1));
                 }
 

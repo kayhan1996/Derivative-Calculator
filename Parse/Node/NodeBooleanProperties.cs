@@ -55,6 +55,8 @@ namespace Parse {
         /// </summary>
         public bool IsBranch => !IsLeaf;
 
+        public bool IsPolynomial => IsBranch && Attribute == Attributes.Exponent && LeftChild.Attribute == Attributes.Variable && RightChild.Attribute == Attributes.Number;
+
         /// <summary>
         /// If either child matches the predicate the method returns true
         /// </summary>
