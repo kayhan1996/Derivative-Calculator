@@ -22,10 +22,7 @@ namespace Parse {
                 derivative.RightChild.IsParenthesized = true;
 
             } else if (n.Payload == "+") {
-
                 derivative = dydx(n.LeftChild) + dydx(n.RightChild);
-                derivative.IsParenthesized = true;
-
             } else if (n.Payload == "/") {
 
                 derivative = ((n.RightChild * dydx(n.LeftChild)) - (n.LeftChild * dydx(n.RightChild))) / (n.RightChild ^ 2);
