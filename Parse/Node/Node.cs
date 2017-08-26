@@ -12,6 +12,7 @@ namespace Parse {
         private Node leftChild;
         private Node rightChild;
         private Node parent;
+        private bool isParenthesized;
 
         public Node(String payload = "", Attributes attribute = Attributes.Empty, Node leftChild = null, Node rightChild = null) {
             this.Payload = payload;
