@@ -131,7 +131,7 @@ namespace Parse {
             if (this.HasLeftChild) {
                 s += leftChild.ToFormattedString();
             }
-            if (HasRightChild && (RightChild.IsVariable || RightChild.IsPolynomial)) {
+            if (Payload == "*" && HasRightChild && (RightChild.IsParenthesized || RightChild.IsVariable || RightChild.IsPolynomial || RightChild.IsFunction)) {
 
             } else {
                 s += Payload;
