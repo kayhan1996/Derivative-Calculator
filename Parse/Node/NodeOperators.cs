@@ -51,7 +51,7 @@ namespace Parse
             return n;
         }
         public static Node operator -(Node x1, double x2) {
-            if (x1.Attribute == Attributes.Number) {
+            if (x1.IsNumber) {
                 double x = double.Parse(x1.Payload) - x2;
                 Node n = new Node(x.ToString(), Attributes.Number);
                 return n;

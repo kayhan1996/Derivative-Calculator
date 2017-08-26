@@ -129,7 +129,7 @@ namespace Parse {
             if (this.HasLeftChild) {
                 s += leftChild.ToFormattedString();
             }
-            if (HasRightChild && (RightChild.Attribute == Attributes.Variable || RightChild.IsPolynomial)) {
+            if (HasRightChild && (RightChild.IsVariable || RightChild.IsPolynomial)) {
 
             } else {
                 s += Payload;

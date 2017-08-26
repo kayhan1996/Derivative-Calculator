@@ -30,11 +30,11 @@ namespace Parse {
 
                 derivative = ((n.RightChild * dydx(n.LeftChild)) - (n.LeftChild * dydx(n.RightChild))) / (n.RightChild ^ 2);
 
-            } else if (n.Attribute == Attributes.Variable) {
+            } else if (n.IsVariable) {
 
                 derivative = new Node("1", Attributes.Number);
 
-            } else if (n.Attribute == Attributes.Number) {
+            } else if (n.IsNumber) {
                 derivative = new Node("0", Attributes.Number);
             }
 
