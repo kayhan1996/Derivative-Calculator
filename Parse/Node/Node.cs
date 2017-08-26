@@ -117,6 +117,11 @@ namespace Parse {
             }
         }
 
+        /// Finds the closest Nodes matching the predicate near n
+        /// </summary>
+        /// <param name="n"></param>
+        /// <param name="predicate"></param>
+        /// <returns></returns>
         public IEnumerable<Node> BFS(Func<Node, bool> predicate) {
             return _BreadthFirstSearch(this, predicate);
         }
@@ -182,7 +187,6 @@ namespace Parse {
                 }
             }
         }
-
         IEnumerator IEnumerable.GetEnumerator() {
             yield return this.GetEnumerator();
         }
