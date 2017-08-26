@@ -46,7 +46,7 @@
     <Compile Include="Evaluate.cs" />
     <Compile Include="Node\Node.cs" />
     <Compile Include="Lexical Analysis\Parser.cs" />
-    <Compile Include="Lexical Analysis\Types.cs" />
+    <Compile Include="Lexical Analysis\Attributes.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="Node\NodeOperators.cs" />
     <Compile Include="Node\NodeBooleanProperties.cs" />

@@ -12,7 +12,7 @@ namespace Parse
             /*Special case for when multiplying nodes in a list, the first node is empty*/
             if(x1.Attribute == Attributes.Empty) { return x2; }
 
-            Node n = new Node("*", Attributes.Factor);
+            Node n = new Node("*", Attributes.Term);
             n.LeftChild = x1;
             n.RightChild = x2;
             return n;
@@ -33,7 +33,7 @@ namespace Parse
             return n;
         }
         public static Node operator /(Node x1, Node x2) {
-            Node n = new Node("/", Attributes.Factor);
+            Node n = new Node("/", Attributes.Term);
             n.LeftChild = x1;
             n.RightChild = x2;
             return n;

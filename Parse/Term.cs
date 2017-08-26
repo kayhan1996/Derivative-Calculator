@@ -48,7 +48,7 @@ namespace Parse {
                 if(factor.Value == 1.0) {
                     yield return new Node(factor.Key, Attributes.Variable);
                 } else {
-                    Node n1 = new Node(factor.Key, Attributes.Factor);
+                    Node n1 = new Node(factor.Key, Attributes.Variable);
                     Node n2 = new Node(factor.Value.ToString(), Attributes.Number);
                     Node tmp = n1 ^ n2;
                     yield return tmp;
