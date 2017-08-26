@@ -24,7 +24,7 @@ namespace Parse.Tests {
 
         [TestMethod()]
         public void TestMultiplicationDydx() {
-            Parser p = new Parser("2*x");
+            Parser p = new Parser("2x");
             Node n = p.Parse();
             Node dydx = Derivator.dydx(n);
 
