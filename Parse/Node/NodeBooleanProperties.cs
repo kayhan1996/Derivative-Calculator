@@ -55,7 +55,30 @@ namespace Parse {
         /// </summary>
         public bool IsBranch => !IsLeaf;
 
-        public bool IsPolynomial => IsBranch && Attribute == Attributes.Exponent && LeftChild.Attribute == Attributes.Variable && RightChild.Attribute == Attributes.Number;
+        /// <summary>
+        /// Returns true if the current node is a polynomial
+        /// </summary>
+        public bool IsPolynomial => IsBranch && Attribute == Attributes.Exponent && LeftChild.IsVariable && RightChild.IsNumber;
+
+        /// <summary>
+        /// Returns true if the current node is a variable
+        /// </summary>
+        public bool IsVariable => Attribute == Attributes.Variable;
+
+        /// <summary>
+        /// Returns true if the current node is a number
+        /// </summary>
+        public bool IsNumber => Attribute == Attributes.Number;
+
+        /// <summary>
+        /// Returns true if the current node is a function
+        /// </summary>
+        public bool IsFunction => IsBranch && Attribute == Attributes.Exponent && LeftChild.IsStatement && RightChild.IsNumber;
+
+        /// <summary>
+        /// Returns true if the current node is a statement
+        /// </summary>
+        public bool IsStatement => IsBranch && (Payload == "+" || Payload == "-");
 
         /// <summary>
         /// If either child matches the predicate the method returns true
