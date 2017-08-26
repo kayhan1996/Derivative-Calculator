@@ -82,11 +82,10 @@ namespace Parse {
             Token token = t.getNextToken();
 
             if (token.type == "Number") {
-                Node number = new Number(token.payload);
+                Node number = new Node(token.payload, Attributes.Number);
                 return number;
             }else if (token.type == "Variable") {
                 Node n = new Node(token.payload, Attributes.Variable);
-                n.Attribute = Attributes.Variable;
                 return n;
             }else if(token.type == "LeftBracket") {
                 Node statement = Statement();
@@ -96,7 +95,7 @@ namespace Parse {
                 statement.Attribute = Attributes.Parenthesized;
                 return statement;
             } else {
-                throw new System.Exception("Unhandled Number Error.");
+                throw new System.Exception("Unhandled Factor Error.");
             }
         }
     }

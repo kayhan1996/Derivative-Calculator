@@ -11,39 +11,18 @@ namespace Parse {
         /// Returns true if the current node has a left child
         /// </summary>
         /// <returns></returns>
-        public bool HasLeftChild {
-            get {
-                if (this.leftChild != null) {
-                    return true;
-                }
-                return false;
-            }
-        }
+        public bool HasLeftChild => leftChild != null;
         /// <summary>
         /// Returns true if the current node has a right child
         /// </summary>
         /// <returns></returns>
-        public bool HasRightChild {
-            get{
-                if (this.rightChild != null) {
-                    return true;
-                }
-                return false;
-            }
-        }
+        public bool HasRightChild => rightChild != null;
 
         /// <summary>
         /// Returns true if the current node has a Parent
         /// </summary>
         /// <returns></returns>
-        public bool HasParent {
-            get {
-                if (this.Parent != null) {
-                    return true;
-                }
-                return false;
-            }
-        }
+        public bool HasParent => Parent != null;
 
         /// <summary>
         /// Returns true if the current Node is the left child of the Parent,
@@ -51,14 +30,7 @@ namespace Parse {
         /// </summary>
         /// <param name="n"></param>
         /// <returns></returns>
-        public bool IsLeftChild {
-            get {
-                if (this.HasParent && this.Parent.leftChild == this) {
-                    return true;
-                }
-                return false;
-            }
-        }
+        public bool IsLeftChild => HasParent && Parent.leftChild == this;
 
         /// <summary>
         /// Returns true if the current Node is the right child of the Parent,
@@ -66,34 +38,41 @@ namespace Parse {
         /// </summary>
         /// <param name="n"></param>
         /// <returns></returns>
-        public bool IsRightChild {
-            get {
-                if (this.HasParent && this.Parent.rightChild == this) {
-                    return true;
-                }
-                return false;
-            }
-        }
+        public bool IsRightChild => HasParent && Parent.rightChild == this;
 
         /// <summary>
         /// Returns true if the current node is a root node
         /// </summary>
-        public bool IsRoot {
-            get {
-                return !this.HasParent;
-            }
-        }
+        public bool IsRoot => !HasParent;
 
         /// <summary>
         /// Returns true if the current node is a leaf node
         /// </summary>
-        public bool IsLeaf {
-            get {
-                if(!(this.HasLeftChild && this.HasRightChild)) {
-                    return true;
-                }
-                return false;
-            }
+        public bool IsLeaf => !HasLeftChild && !HasRightChild;
+
+        /// <summary>
+        /// Returns true if the current node is a branch
+        /// </summary>
+        public bool IsBranch => !IsLeaf;
+
+        /// <summary>
+        /// If either child matches the predicate the method returns true
+        /// </summary>
+        /// <param name="predicate"></param>
+        /// <returns></returns>
+        public bool EitherChildren(Func<Node, bool> predicate) {
+            if(predicate(LeftChild) || predicate(RightChild)) { return true; }
+            return false;
+        }
+
+        /// <summary>
+        /// If both children match the predicate the method returns true
+        /// </summary>
+        /// <param name="predicate"></param>
+        /// <returns></returns>
+        public bool BothChildren(Func<Node, bool> predicate) {
+            if (predicate(LeftChild) && predicate(RightChild)) { return true; }
+            return false;
         }
 
         /// <summary>
