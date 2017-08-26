@@ -9,6 +9,8 @@ namespace Parse {
         public static void SimplifyExpression(Node expression) {
             ZeroMultiplication(expression);
             ZeroAddition(expression);
+            PowersOfOne(expression);
+            PowersOfZero(expression);
         }
 
         public static void ZeroMultiplication(Node n) {
@@ -73,6 +75,11 @@ namespace Parse {
             FindAndReplace(n, predicate, action);
         }
 
+        public static void SimplifyFactors(Node n) {
+            var Factors = n.Where(x => x.Payload != "+").ToList();
+        }
+
+ 
         private static void FindAndReplace(Node n, Func<Node, bool> p, Action<Node> a) {
             var node = n.FirstOrDefault(p);
 

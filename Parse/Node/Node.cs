@@ -13,9 +13,9 @@ namespace Parse {
         private Node rightChild;
         private Node parent;
 
-        public Node(String payload = "", Attributes type = Attributes.Empty, Node leftChild = null, Node rightChild = null) {
+        public Node(String payload = "", Attributes attribute = Attributes.Empty, Node leftChild = null, Node rightChild = null) {
             this.Payload = payload;
-            this.Attribute = type;
+            this.Attribute = attribute;
             this.LeftChild = leftChild;
             this.RightChild = rightChild;
         }
@@ -30,7 +30,7 @@ namespace Parse {
 
             set {
                 this.leftChild = value;
-                if (value != null) { value.Parent = this; };
+                if (HasLeftChild) { value.Parent = this; };
             }
         }
 
@@ -43,7 +43,7 @@ namespace Parse {
             }
             set {
                 this.rightChild = value;
-                if (value != null) { value.Parent = this; }
+                if (HasRightChild) { value.Parent = this; }
             }
         }
 
@@ -51,13 +51,8 @@ namespace Parse {
         /// Accessors for the Parent node of the current object
         /// </summary>
         public Node Parent {
-            get {
-                return parent;
-            }
-
-            protected set {
-                this.parent = value;
-            }
+            get { return parent; }
+            protected set { parent = value; }
         }
 
         /// <summary>
@@ -99,6 +94,29 @@ namespace Parse {
                     this.Parent.rightChild = null;
                 }
             }
+        }
+
+        /// <summary>
+        /// Finds the closest Nodes matching the predicate near n
+        /// </summary>
+        /// <param name="n"></param>
+        /// <param name="predicate"></param>
+        /// <returns></returns>
+        private static IEnumerable<Node> _BreadthFirstSearch(Node n, Func<Node, bool> predicate) {
+            if (predicate(n)) {
+                yield return n;
+            } else {
+                foreach(var child in _BreadthFirstSearch(n.LeftChild, predicate)){
+                    yield return child;
+                }
+                foreach (var child in _BreadthFirstSearch(n.RightChild, predicate)) {
+                    yield return child;
+                }
+            }
+        }
+
+        public IEnumerable<Node> BFS(Func<Node, bool> predicate) {
+            return _BreadthFirstSearch(this, predicate);
         }
 
         public override string ToString() {

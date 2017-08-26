@@ -11,9 +11,9 @@ namespace Parse.Tests {
     public class NodeTests {
         [TestMethod()]
         public void TestNodeConstructor() {
-            Node a = new Node(payload: "2", type: Attributes.Number);
-            Node b = new Node(payload: "3", type: Attributes.Number);
-            Node n = new Node(payload: "*", type: Attributes.Term, leftChild: a, rightChild: b);
+            Node a = new Node(payload: "2", attribute: Attributes.Number);
+            Node b = new Node(payload: "3", attribute: Attributes.Number);
+            Node n = new Node(payload: "*", attribute: Attributes.Term, leftChild: a, rightChild: b);
 
             if (n.IsRoot != true) {
                 throw new Exception("Node is not a root");
@@ -190,13 +190,23 @@ namespace Parse.Tests {
             var n = x.Parse();
             var ln = n.Where(p => p.Payload == "*" && p.IsBranch && p.EitherChildren(a => a.Payload == "0")).ToList();
 
-            foreach(var node in ln) {
-                if(node.Payload == "*" && node.EitherChildren(a=>a.Payload == "0")) {
-
-                } else {
+            foreach(var node in ln) 
+                if(! (node.Payload == "*" && node.EitherChildren(a=>a.Payload == "0")))
                     throw new Exception("Find method does not return correct results");
-                }
+            
+        }
+        [TestMethod]
+        public void TestBFS() {
+            var p = new Parser("2*x+3*(x+2)+7*x*x+x^3*(x+4)").Parse();
+            var terms = p.BFS(x => x.Payload != "+").ToList();
+
+            foreach(var term in terms) {
+                var factors = term.BFS(x => x.Payload != "*").ToList();
+                Console.WriteLine();
             }
+
+            
+            throw new Exception("BFS failed");
         } 
     }
 }
