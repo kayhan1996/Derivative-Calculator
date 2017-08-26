@@ -15,7 +15,7 @@ namespace Parse {
                 Simplify.SimplifyExpression(Pexpression);
                 var derivative = Derivator.dydx(Pexpression);
                 Simplify.SimplifyExpression(derivative);
-                Console.WriteLine(derivative.ToString());
+                Console.WriteLine(derivative.ToFormattedString());
             }
             /*
             var n = new Parser("2*x^2").Parse();

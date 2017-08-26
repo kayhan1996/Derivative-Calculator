@@ -119,6 +119,31 @@ namespace Parse {
             return _BreadthFirstSearch(this, predicate);
         }
 
+        public string ToFormattedString() {
+            string s = "";
+
+            if (Attribute == Attributes.Parenthesized) {
+                s = "(";
+            }
+
+            if (this.HasLeftChild) {
+                s += leftChild.ToFormattedString();
+            }
+            if (HasRightChild && (RightChild.Attribute == Attributes.Variable || RightChild.IsPolynomial)) {
+
+            } else {
+                s += Payload;
+            }
+            if (this.HasRightChild) {
+                s += rightChild.ToFormattedString();
+            }
+
+            if (Attribute == Attributes.Parenthesized) {
+                s += ")";
+            }
+            return s;
+        }
+
         public override string ToString() {
             string s = "";
 
@@ -127,7 +152,7 @@ namespace Parse {
             }
 
             if (this.HasLeftChild) {
-                s += leftChild.ToString();
+                s += leftChild;
             }
             s += Payload;
             if (this.HasRightChild) {
