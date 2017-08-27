@@ -111,5 +111,22 @@ namespace Parse.Tests {
             }
         }
 
+        [TestMethod]
+        public void TestSimplify() {
+            var p = new Parser("3*x*x*x").Parse();
+            Simplify.SimplifyExpression(p);
+
+            if (p.ToString() != "3*x^3") {
+                throw new Exception("Simplification failed");
+            }
+
+            p = new Parser("(3x^2)(2x^2)").Parse();
+            Simplify.SimplifyExpression(p);
+
+            if (p.ToString() != "6*x^4") {
+                throw new Exception("Simplification failed");
+            }
+        }
+
     }
 }

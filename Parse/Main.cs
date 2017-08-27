@@ -13,6 +13,7 @@ namespace Parse {
                 var expression = Console.ReadLine();
                 var Pexpression = new Parser(expression).Parse();
                 Simplify.SimplifyExpression(Pexpression);
+                Console.WriteLine("Simplifies to: " + Pexpression);
                 var derivative = Derivator.dydx(Pexpression);
                 Simplify.SimplifyExpression(derivative);
                 Console.WriteLine(derivative.ToFormattedString());
