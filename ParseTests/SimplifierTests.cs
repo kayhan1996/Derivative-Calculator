@@ -112,21 +112,33 @@ namespace Parse.Tests {
         }
 
         [TestMethod]
-        public void TestSimplify() {
-            var p = new Parser("3*x*x*x").Parse();
-            Simplify.SimplifyExpression(p);
-
-            if (p.ToString() != "3*x^3") {
-                throw new Exception("Simplification failed");
-            }
-
-            p = new Parser("(3x^2)(2x^2)").Parse();
-            Simplify.SimplifyExpression(p);
-
-            if (p.ToString() != "6*x^4") {
-                throw new Exception("Simplification failed");
+        public void TestNumericalPowers() {
+            var p = new Parser("2^3x^4y+5^3x").Parse();
+            Simplify.NumericalPowers(p);
+            if(p.ToFormattedString() != "8x^4y+125x") {
+                throw new Exception("Numerical Power error, expression simplified to: " + p.ToString());
             }
         }
 
+        [TestMethod]
+        public void TestSimplifyFactors() {
+            var p = new Parser("3xxyyx").Parse();
+            Simplify.Terms(p);
+
+            if (p.ToFormattedString() != "3x^3y^2") {
+                throw new Exception($"Factor Simplification failed, factor {p} simplifed to {p.ToFormattedString()}");
+            }
+        }
+
+        [TestMethod]
+        public void TestSimplifyExpressions() {
+            string s = "(3x^2)(2x^2)";
+            var p = new Parser(s).Parse();
+            Simplify.SimplifyExpression(p);
+
+            if (p.ToString() != "6*x^4") {
+                throw new Exception($"Simplification failed {s} simplified to {p.ToFormattedString()}");
+            }
+        }
     }
 }

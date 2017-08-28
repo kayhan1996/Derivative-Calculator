@@ -12,7 +12,7 @@ namespace Parse {
             ZeroAddition(expression);
             PowersOfOne(expression);
             PowersOfZero(expression);
-            SimplifyFactors(expression);
+            Terms(expression);
         }
 
         public static void ZeroMultiplication(Node n) {
@@ -75,12 +75,11 @@ namespace Parse {
             FindAndReplace(n, predicate, action);
         }
 
-        public static void SimplifyFactors(Node n) {
+        public static void Terms(Node n) {
             var terms = n.BFS(x => !x.IsStatement).ToList();
-
             var expression = new Node();
             foreach (var term in terms) {
-                expression += new Term(term).ToNode();
+                expression += new Factor(term).ToNode();
             }
 
             n.Replace(expression);
