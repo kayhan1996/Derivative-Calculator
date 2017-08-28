@@ -7,14 +7,12 @@ using System.Threading.Tasks;
 namespace Parse {
     public class Tokenizer {
         String equation;
-        int id; //TODO: determine the location of an error in an expression using id
         int index;
         bool inRevert;
         Token previousToken;
         public Tokenizer(String equation) {
             this.equation = equation;
             index = 0;
-            id = 0;
             previousToken = new Token();
             inRevert = false;
         }
