@@ -12,7 +12,6 @@ namespace Parse {
         private Node leftChild;
         private Node rightChild;
         private Node parent;
-        private Decimal exponent;
         private bool isParenthesized;
 
         public Node(String payload = "", Attributes attribute = Attributes.Empty, Node leftChild = null, Node rightChild = null) {
@@ -24,7 +23,7 @@ namespace Parse {
         }
 
         /// <summary>
-        /// Accessors for the left child node of the current Node
+        /// Accessors for the left child node of the current object
         /// </summary>
         public Node LeftChild {
             get {
@@ -38,7 +37,7 @@ namespace Parse {
         }
 
         /// <summary>
-        /// Accessors for the right child node of the current Node
+        /// Accessors for the right child node of the current object
         /// </summary>
         public Node RightChild {
             get {
@@ -51,7 +50,7 @@ namespace Parse {
         }
 
         /// <summary>
-        /// Accessors for the Parent node of the current Node
+        /// Accessors for the Parent node of the current object
         /// </summary>
         public Node Parent {
             get { return parent; }
@@ -59,27 +58,16 @@ namespace Parse {
         }
 
         /// <summary>
-        /// Accessors for the type of the current Node
+        /// Accessors for the type of the current object
         /// </summary>
         public Attributes Attribute {
             get { return attribute;  }
             set { attribute = value; }
         }
 
-        /// <summary>
-        /// Accessors for the Payload data of the current Node
-        /// </summary>
         public String Payload {
             get { return payload; }
             set { payload = value; }
-        }
-
-        /// <summary>
-        /// Accessors for the Exponent property of the current Node
-        /// </summary>
-        public Decimal Exponent {
-            get => exponent;
-            set => exponent = value;
         }
 
         /// <summary>
