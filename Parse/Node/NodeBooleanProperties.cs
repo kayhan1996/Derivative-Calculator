@@ -86,13 +86,8 @@ namespace Parse {
         /// Checks if the current node is inside brackets
         /// </summary>
         public bool IsParenthesized {
-            get {
-                return ( IsStatement && HasParent && Parent.IsTerm ) ? true : isParenthesized;
-            }
-
-            set {
-                isParenthesized = value;
-            }
+            get => ( IsStatement && HasParent && Parent.IsTerm ) ? true : isParenthesized;
+            set => isParenthesized = value;
         }
 
         /// <summary>
