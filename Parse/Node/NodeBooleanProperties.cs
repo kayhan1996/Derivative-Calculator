@@ -96,8 +96,7 @@ namespace Parse {
         /// <param name="predicate"></param>
         /// <returns></returns>
         public bool EitherChildren(Func<Node, bool> predicate) {
-            if(predicate(LeftChild) || predicate(RightChild)) { return true; }
-            return false;
+            return predicate(LeftChild) || predicate(RightChild);
         }
 
         /// <summary>
@@ -106,8 +105,7 @@ namespace Parse {
         /// <param name="predicate"></param>
         /// <returns></returns>
         public bool BothChildren(Func<Node, bool> predicate) {
-            if (predicate(LeftChild) && predicate(RightChild)) { return true; }
-            return false;
+            return predicate(LeftChild) && predicate(RightChild);
         }
 
         /// <summary>
