@@ -21,6 +21,15 @@ namespace Parse {
 
             } else if (n.Payload == "*") {
 
+                if(n.LeftChild.IsNumber && n.RightChild.IsFunction)
+                {
+                    derivative = n.LeftChild;
+                    n = n.RightChild;
+                    var dfx = n.RightChild * (n.LeftChild ^ (n.RightChild - 1));
+                    var dgx = dydx(n.LeftChild);
+                    derivative *= dfx * dgx;
+                }
+
                 derivative = (dydx(n.LeftChild) * (n.RightChild)) + (dydx(n.RightChild) * (n.LeftChild));
                 derivative.LeftChild.IsParenthesized = true;
                 derivative.RightChild.IsParenthesized = true;
